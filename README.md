@@ -21,29 +21,30 @@ This project was developed as part of the FuelEU Full-Stack Developer Assignment
 ```
 fuel-eu-compliance/
 ├── backend/
-│   ├── src/
-│   │   ├── domain/            # Domain models and business rules
-│   │   ├── application/       # Use-cases / services
-│   │   ├── ports/             # Interfaces (repositories, services)
-│   │   ├── adapters/
-│   │   │   ├── inbound/       # HTTP controllers (Express)
-│   │   │   └── outbound/      # DB adapters (pg / prisma)
-│   │   └── infra/             # DB client, config, server bootstrap
-│   ├── package.json
-│   └── Dockerfile / docker-compose.yml
+│ ├── prisma/ # (optional) Prisma schema & migrations
+│ ├── src/
+│ │ ├── domain/ # Domain models and business rules
+│ │ ├── application/ # Use-cases / services
+│ │ ├── ports/ # Interfaces (repositories, services)
+│ │ ├── adapters/
+│ │ │ ├── inbound/ # HTTP controllers (Express)
+│ │ │ └── outbound/ # DB adapters (pg / prisma)
+│ │ └── infra/ # DB client, config, server bootstrap
+│ ├── package.json
+│ └── Dockerfile / docker-compose.yml
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── api/               # client wrappers (fetch/axios)
-│   │   ├── components/        # UI components
-│   │   ├── pages/             # Dashboard pages
-│   │   └── styles/            # Tailwind configuration
-│   ├── package.json
-│   └── vite.config.ts
+│ ├── src/
+│ │ ├── api/ # client wrappers (fetch/axios)
+│ │ ├── components/ # UI components
+│ │ ├── pages/ # Dashboard pages: Routes / Compare / Banking / Pooling
+│ │ └── styles/ # Tailwind configuration
+│ ├── package.json
+│ └── vite.config.ts
 │
 ├── AGENT_WORKFLOW.md
 ├── REFLECTION.md
-├── README.md
+├── README.md # <- this file
 └── docker-compose.yml
 ```
 

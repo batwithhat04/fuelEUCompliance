@@ -1,127 +1,157 @@
-# ⚓ FuelEU Maritime — FullStack Developer Assignment
+# FuelEU Maritime Compliance Platform
 
-A minimal, cleanly structured implementation of a **Fuel EU Maritime compliance module**.
-
----
-
-## 🧱 Tech Stack
-
-| Layer | Tech |
-|-------|------|
-| **Frontend** | React + TypeScript + TailwindCSS |
-| **Backend** | Node.js + Express + TypeScript |
-| **Database** | PostgreSQL |
-| **Architecture** | Hexagonal (Ports & Adapters / Clean Architecture) |
-| **Testing** | Jest |
-| **Docs** | Markdown + AI-assisted reflections |
+A full-stack application for monitoring, comparing, and managing maritime fuel emissions in compliance with the FuelEU Maritime Regulation.  
+This repository demonstrates a minimal, production-aware implementation of route tracking, compliance comparison, banking, and pooling — implemented with React, Node.js, TypeScript, and PostgreSQL.
 
 ---
 
-## 🚀 Project Overview
+## Overview
 
-The project models a simplified **FuelEU Maritime compliance platform** to manage:
+This project was developed as part of the FuelEU Full-Stack Developer Assignment to demonstrate:
 
-- ✅ Vessel Routes  
-- ⚖️ Compliance Balances (CB)  
-- 🏦 Banking & Pooling  
-- 📊 Dashboard Visualization  
+- Clean Hexagonal Architecture (Ports & Adapters)
+- Domain-driven modelling for Routes, Compliance Balances (CB), Banking & Pooling
+- Integration: frontend + backend + database with end-to-end type safety
+- Practical AI-agent assisted development (see AGENT_WORKFLOW.md)
 
 ---
 
-## 📂 Folder Structure
+## Project Structure (high level)
 
+```
 fuel-eu-compliance/
-│
 ├── backend/
-│ ├── src/
-│ │ ├── domain/
-│ │ ├── application/
-│ │ ├── infrastructure/
-│ │ └── server.ts
-│ ├── tests/
-│ └── package.json
+│   ├── src/
+│   │   ├── domain/            # Domain models and business rules
+│   │   ├── application/       # Use-cases / services
+│   │   ├── ports/             # Interfaces (repositories, services)
+│   │   ├── adapters/
+│   │   │   ├── inbound/       # HTTP controllers (Express)
+│   │   │   └── outbound/      # DB adapters (pg / prisma)
+│   │   └── infra/             # DB client, config, server bootstrap
+│   ├── package.json
+│   └── Dockerfile / docker-compose.yml
 │
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── hooks/
-│ │ └── api/
-│ ├── package.json
-│ └── vite.config.ts
+│   ├── src/
+│   │   ├── api/               # client wrappers (fetch/axios)
+│   │   ├── components/        # UI components
+│   │   ├── pages/             # Dashboard pages
+│   │   └── styles/            # Tailwind configuration
+│   ├── package.json
+│   └── vite.config.ts
 │
-├── docker-compose.yml
 ├── AGENT_WORKFLOW.md
 ├── REFLECTION.md
-└── README.md
-
+├── README.md
+└── docker-compose.yml
+```
 
 ---
 
-## 🧑‍💻 Setup Instructions
+## Tech Stack
 
-### 1️⃣ Clone Repo
+### Frontend
+- React (Vite + TypeScript)
+- TailwindCSS
+
+### Backend
+- Node.js + Express + TypeScript
+- PostgreSQL
+- Jest + Supertest for testing
+- Docker & Docker Compose for infra
+
+---
+
+## Features Implemented
+
+- Route management (list / create)
+- Compliance Balance (CB) read + deposit API
+- Banking (bank surplus) — scaffolded
+- Pooling (pool creation/validation) — scaffolded
+- Frontend dashboard with:
+  - Routes tab
+  - Compliance balance display + deposit
+  - Simple compare/baseline UI
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm
+- Docker Desktop
+
+### 1) Clone repository
 ```bash
 git clone https://github.com/<your-username>/fuel-eu-compliance.git
 cd fuel-eu-compliance
+```
 
-2️⃣ Backend Setup
+### 2) Start PostgreSQL
+```bash
+docker compose up -d
+```
+
+### 3) Backend setup
+```bash
 cd backend
-npm init -y
-npm install express cors pg dotenv typescript ts-node-dev jest @types/express @types/node --save
-npx tsc --init
-
-
-Run server:
-
+npm install
 npm run dev
+```
 
-3️⃣ Frontend Setup
+Backend runs on `http://localhost:4000`.
+
+### 4) Frontend setup
+```bash
 cd ../frontend
-npm create vite@latest . -- --template react-ts
-npm install axios tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+npm install
+echo "VITE_API_BASE=http://localhost:4000/api" > .env
 npm run dev
+```
 
-4️⃣ Database (Docker)
-docker-compose up -d
+Frontend runs on `http://localhost:5173`.
 
-🧩 Features Implemented
+---
 
-✅ Route management (CRUD)
+## API Endpoints
 
-✅ Compliance Balance (CB) calculation API
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| GET | `/routes` | List all routes |
+| POST | `/routes` | Create new route |
+| GET | `/cb/:id` | Get compliance balance |
+| POST | `/cb/:id/deposit` | Deposit CO₂ balance |
+| POST | `/banking/bank` | Bank surplus (scaffold) |
+| POST | `/pools` | Create/validate pooling (scaffold) |
 
-✅ Banking & Pooling simulation
+---
 
-✅ Dashboard frontend (React)
+## Testing
 
-✅ Type-safe integration (TypeScript)
-
-✅ Hexagonal backend architecture
-
-✅ Dockerized Postgres
-
-📊 Example API
-GET /api/routes
-
-Returns all vessel routes.
-
-POST /api/compliance
-
-Calculates compliance balance for a route.
-
-🧠 Documentation
-
-AI Workflow: AGENT_WORKFLOW.md
-
-Developer Reflection: REFLECTION.md
-
-🧪 Testing
+```bash
 cd backend
 npm run test
+```
 
-🧰 Credits
+---
 
-Developed by Avinash Singh
-AI assistance from ChatGPT (GPT-5), GitHub Copilot, Cursor, and Claude.
+## AI Agent Usage
+
+This project used AI assistance (ChatGPT / GitHub Copilot / Cursor / Claude) to accelerate scaffolding and design decisions.  
+See `AGENT_WORKFLOW.md` for detailed workflow and ethical usage documentation.
+
+---
+
+## Author
+
+Developed by **Avinash Singh**  
+Assisted by **AI Agents** (ChatGPT GPT‑5, Copilot, Claude, Cursor)
+
+---
+
+## License
+
+Educational / Demonstration Use Only  
+© 2025 Avinash Singh. All rights reserved.

@@ -1,20 +1,30 @@
 const BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000/api";
 
-export async function getJSON<T>(path: string) {
-  const res = await fetch(`${BASE}${path}`);
-  if (!res.ok) throw new Error(await res.text());
+/**
+ * Generic get JSON helper
+ */
+export async function getJSON<T>(path: string): Promise<T> {
+  const res = await fetch(`${BASE}${path}`, { credentials: "same-origin" });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || `GET ${path} failed with ${res.status}`);
+  }
   return res.json() as Promise<T>;
 }
 
-export async function postJSON<T>(path: string, body: any) {
+/**
+ * Generic POST JSON helper
+ */
+export async function postJSON<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
+    credentials: "same-origin"
   });
   if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(txt);
+    const text = await res.text();
+    throw new Error(text || `POST ${path} failed with ${res.status}`);
   }
   return res.json() as Promise<T>;
 }

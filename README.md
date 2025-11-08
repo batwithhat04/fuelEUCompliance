@@ -20,32 +20,29 @@ This project was developed as part of the FuelEU Full-Stack Developer Assignment
 
 ```
 fuel-eu-compliance/
+│
 ├── backend/
-│ ├── prisma/ # (optional) Prisma schema & migrations
 │ ├── src/
-│ │ ├── domain/ # Domain models and business rules
-│ │ ├── application/ # Use-cases / services
-│ │ ├── ports/ # Interfaces (repositories, services)
-│ │ ├── adapters/
-│ │ │ ├── inbound/ # HTTP controllers (Express)
-│ │ │ └── outbound/ # DB adapters (pg / prisma)
-│ │ └── infra/ # DB client, config, server bootstrap
-│ ├── package.json
-│ └── Dockerfile / docker-compose.yml
+│ │ ├── domain/
+│ │ ├── application/
+│ │ ├── infrastructure/
+│ │ └── server.ts
+│ ├── tests/
+│ └── package.json
 │
 ├── frontend/
 │ ├── src/
-│ │ ├── api/ # client wrappers (fetch/axios)
-│ │ ├── components/ # UI components
-│ │ ├── pages/ # Dashboard pages: Routes / Compare / Banking / Pooling
-│ │ └── styles/ # Tailwind configuration
+│ │ ├── components/
+│ │ ├── pages/
+│ │ ├── hooks/
+│ │ └── api/
 │ ├── package.json
 │ └── vite.config.ts
 │
+├── docker-compose.yml
 ├── AGENT_WORKFLOW.md
 ├── REFLECTION.md
-├── README.md # <- this file
-└── docker-compose.yml
+└── README.md
 ```
 
 ---
@@ -86,8 +83,8 @@ fuel-eu-compliance/
 
 ### 1) Clone repository
 ```bash
-git clone https://github.com/<your-username>/fuel-eu-compliance.git
-cd fuel-eu-compliance
+git clone https://github.com/batwithhat04/fuelEUCompliance
+cd fuelEUCompliance
 ```
 
 ### 2) Start PostgreSQL
